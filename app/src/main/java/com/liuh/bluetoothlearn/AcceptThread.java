@@ -2,10 +2,13 @@ package com.liuh.bluetoothlearn;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.UUID;
+
+import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
 
 
 /**
@@ -29,12 +32,13 @@ public class AcceptThread extends Thread {
 
     //本地服务套接字
     private final BluetoothServerSocket mServerSocket;
+    private int mState;//蓝牙连接状态
 
 
     public AcceptThread() {
 
         BluetoothServerSocket tmp = null;
-
+        //创建一个新的侦听服务器套接字
         try {
             tmp = mAdapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME, SERVICE_UUID);
         } catch (IOException e) {
@@ -47,6 +51,28 @@ public class AcceptThread extends Thread {
 
     @Override
     public void run() {
+        BluetoothSocket socket = null;
+        //无限循环,直到连接成功
+        while (mState != STATE_CONNECTED) {
+
+            try {
+                socket = mServerSocket.accept();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(TAG, "accept() failed", e);
+                break;
+            }
+
+            //如果连接被接受
+            if (socket != null) {
+
+
+            }
+
+
+        }
+
+
         super.run();
     }
 }
