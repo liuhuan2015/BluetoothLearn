@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+import static android.bluetooth.BluetoothAdapter.STATE_CONNECTING;
 
 
 /**
@@ -20,6 +21,7 @@ import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
  * 连接不安全的方式: 通过listenUsingInsecureRfcommWithServiceRecord创建RFCOMM Bluetooth socket,连接时不需要进行配对
  * <p>
  * 其中的uuid需要服务器端和客户端进行统一
+ * 本类是服务端类
  */
 
 public class AcceptThread extends Thread {
@@ -30,7 +32,7 @@ public class AcceptThread extends Thread {
 
     private BluetoothAdapter mAdapter;
 
-    //本地服务套接字
+    //本地服务套接字,通过accept()等待客户端的连接(阻塞),直到连接成功或失败
     private final BluetoothServerSocket mServerSocket;
     private int mState;//蓝牙连接状态
 
@@ -65,14 +67,34 @@ public class AcceptThread extends Thread {
 
             //如果连接被接受
             if (socket != null) {
-
-
+                synchronized (this) {
+                    switch (mState) {
+                        case STATE_CONNECTING:
+                            //正常情况,启动ConnectedThread
+//                            connected(socket, socket.getRemoteDevice());
+                            break;
+                        case STATE_CONNECTED:
+                            //已连接
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.e(TAG, "Could not close unwanted socket", e);
+                            }
+                            break;
+                    }
+                }
             }
-
-
         }
-
-
-        super.run();
     }
+
+    public void cancel() {
+        try {
+            mServerSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

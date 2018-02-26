@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 if (scanDevice == null || scanDevice.getName() == null) return;
 
                 String scanDeciceName = scanDevice.getName();
-                Log.e(TAG, "-----扫描到蓝牙设备 : " + scanDeciceName);
+                Log.e(TAG, "-----扫描到蓝牙设备 : " + scanDeciceName + ",address: " + scanDevice.getAddress());
                 bluetoothDeviceList.add(scanDevice);
                 myAdapter.notifyDataSetChanged();
 
