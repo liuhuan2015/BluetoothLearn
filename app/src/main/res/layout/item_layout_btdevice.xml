@@ -1,38 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_btdevice_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_btdevice_img"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:background="@color/colorAccent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/item_btdevice_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/item_btdevice_img"
-        android:orientation="vertical">
+        android:background="@color/pressed_color"
+        android:paddingBottom="3dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:text="已配对设备"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/item_btdevice_name"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_btdevice_title"
+        android:background="@drawable/bg_selector">
+
+        <ImageView
+            android:id="@+id/item_btdevice_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_right_arrow"
+            android:layout_toRightOf="@+id/item_btdevice_img"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_btdevice_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="huawei"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/item_btdevice_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02:00:00:00:00:00"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="huawei"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/item_btdevice_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="02:00:00:00:00:00"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/icon_right_arrow" />
+    </RelativeLayout>
 </RelativeLayout>

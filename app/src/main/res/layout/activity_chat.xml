@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.liuh.bluetoothlearn.MainActivity">
+    tools:context="com.liuh.bluetoothlearn.ChatActivity">
+
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_bluetooth_device"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,17 +18,19 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_scan_again"
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="重新扫描" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btn_start_server_thread"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开启服务端线程" />
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="发送" />
+
     </LinearLayout>
 
 </RelativeLayout>
