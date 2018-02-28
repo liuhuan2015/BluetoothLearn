@@ -168,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
 //                bluetoothDeviceList.addAll(Arrays.asList(devices));
                 //有已配对设备
                 for (BluetoothDevice device : devices) {
-                    bluetoothDeviceList.add(device);
+                    if (!bluetoothDeviceList.contains(device)) {
+                        bluetoothDeviceList.add(device);
+                    }
                 }
             }
             mBluetoothAdapter.startDiscovery();
@@ -272,6 +274,19 @@ public class MainActivity extends AppCompatActivity {
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 //扫描结束
                 Log.e(TAG, "------------蓝牙扫描结束");
+                //有时进来时就走到了这里
+                Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
+
+                if (devices != null && devices.size() > 0) {
+
+//                bluetoothDeviceList.addAll(Arrays.asList(devices));
+                    //有已配对设备
+                    for (BluetoothDevice device : devices) {
+                        if (!bluetoothDeviceList.contains(device)) {
+                            bluetoothDeviceList.add(device);
+                        }
+                    }
+                }
                 printBluetoothDevice();
             } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
